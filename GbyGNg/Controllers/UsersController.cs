@@ -13,44 +13,44 @@ using GbyGNg;
 
 namespace GbyGNg.Controllers
 {
-    public class SamplesController : ApiController
+    public class UsersController : ApiController
     {
         private Model1 db = new Model1();
 
-        // GET: api/Samples
-        public async Task<IHttpActionResult> GetSamples()
+        // GET: api/Users
+        public IQueryable<User> GetUsers()
         {
-            return Ok(db.Samples.Select(s => new { s.SampleId, s.User.FirstName, s.User.LastName, s.Barcode, s.Status.Status1 }));
+            return db.Users;
         }
 
-        // GET: api/Samples/5
-        [ResponseType(typeof(Sample))]
-        public async Task<IHttpActionResult> GetSample(int id)
+        // GET: api/Users/5
+        [ResponseType(typeof(User))]
+        public async Task<IHttpActionResult> GetUser(int id)
         {
-            Sample sample = await db.Samples.FindAsync(id);
-            if (sample == null)
+            User user = await db.Users.FindAsync(id);
+            if (user == null)
             {
                 return NotFound();
             }
 
-            return Ok(sample);
+            return Ok(user);
         }
 
-        // PUT: api/Samples/5
+        // PUT: api/Users/5
         [ResponseType(typeof(void))]
-        public async Task<IHttpActionResult> PutSample(int id, Sample sample)
+        public async Task<IHttpActionResult> PutUser(int id, User user)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != sample.SampleId)
+            if (id != user.UserId)
             {
                 return BadRequest();
             }
 
-            db.Entry(sample).State = EntityState.Modified;
+            db.Entry(user).State = EntityState.Modified;
 
             try
             {
@@ -58,7 +58,7 @@ namespace GbyGNg.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!SampleExists(id))
+                if (!UserExists(id))
                 {
                     return NotFound();
                 }
@@ -71,16 +71,16 @@ namespace GbyGNg.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
-        // POST: api/Samples
-        [ResponseType(typeof(Sample))]
-        public async Task<IHttpActionResult> PostSample(Sample sample)
+        // POST: api/Users
+        [ResponseType(typeof(User))]
+        public async Task<IHttpActionResult> PostUser(User user)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            db.Samples.Add(sample);
+            db.Users.Add(user);
 
             try
             {
@@ -88,7 +88,7 @@ namespace GbyGNg.Controllers
             }
             catch (DbUpdateException)
             {
-                if (SampleExists(sample.SampleId))
+                if (UserExists(user.UserId))
                 {
                     return Conflict();
                 }
@@ -98,23 +98,23 @@ namespace GbyGNg.Controllers
                 }
             }
 
-            return CreatedAtRoute("DefaultApi", new { id = sample.SampleId }, sample);
+            return CreatedAtRoute("DefaultApi", new { id = user.UserId }, user);
         }
 
-        // DELETE: api/Samples/5
-        [ResponseType(typeof(Sample))]
-        public async Task<IHttpActionResult> DeleteSample(int id)
+        // DELETE: api/Users/5
+        [ResponseType(typeof(User))]
+        public async Task<IHttpActionResult> DeleteUser(int id)
         {
-            Sample sample = await db.Samples.FindAsync(id);
-            if (sample == null)
+            User user = await db.Users.FindAsync(id);
+            if (user == null)
             {
                 return NotFound();
             }
 
-            db.Samples.Remove(sample);
+            db.Users.Remove(user);
             await db.SaveChangesAsync();
 
-            return Ok(sample);
+            return Ok(user);
         }
 
         protected override void Dispose(bool disposing)
@@ -126,9 +126,9 @@ namespace GbyGNg.Controllers
             base.Dispose(disposing);
         }
 
-        private bool SampleExists(int id)
+        private bool UserExists(int id)
         {
-            return db.Samples.Count(e => e.SampleId == id) > 0;
+            return db.Users.Count(e => e.UserId == id) > 0;
         }
     }
 }

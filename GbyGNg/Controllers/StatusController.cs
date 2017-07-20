@@ -13,44 +13,44 @@ using GbyGNg;
 
 namespace GbyGNg.Controllers
 {
-    public class SamplesController : ApiController
+    public class StatusController : ApiController
     {
         private Model1 db = new Model1();
 
-        // GET: api/Samples
-        public async Task<IHttpActionResult> GetSamples()
+        // GET: api/Status
+        public IQueryable<Status> GetStatuses()
         {
-            return Ok(db.Samples.Select(s => new { s.SampleId, s.User.FirstName, s.User.LastName, s.Barcode, s.Status.Status1 }));
+            return db.Statuses;
         }
 
-        // GET: api/Samples/5
-        [ResponseType(typeof(Sample))]
-        public async Task<IHttpActionResult> GetSample(int id)
+        // GET: api/Status/5
+        [ResponseType(typeof(Status))]
+        public async Task<IHttpActionResult> GetStatus(int id)
         {
-            Sample sample = await db.Samples.FindAsync(id);
-            if (sample == null)
+            Status status = await db.Statuses.FindAsync(id);
+            if (status == null)
             {
                 return NotFound();
             }
 
-            return Ok(sample);
+            return Ok(status);
         }
 
-        // PUT: api/Samples/5
+        // PUT: api/Status/5
         [ResponseType(typeof(void))]
-        public async Task<IHttpActionResult> PutSample(int id, Sample sample)
+        public async Task<IHttpActionResult> PutStatus(int id, Status status)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != sample.SampleId)
+            if (id != status.StatusId)
             {
                 return BadRequest();
             }
 
-            db.Entry(sample).State = EntityState.Modified;
+            db.Entry(status).State = EntityState.Modified;
 
             try
             {
@@ -58,7 +58,7 @@ namespace GbyGNg.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!SampleExists(id))
+                if (!StatusExists(id))
                 {
                     return NotFound();
                 }
@@ -71,16 +71,16 @@ namespace GbyGNg.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
-        // POST: api/Samples
-        [ResponseType(typeof(Sample))]
-        public async Task<IHttpActionResult> PostSample(Sample sample)
+        // POST: api/Status
+        [ResponseType(typeof(Status))]
+        public async Task<IHttpActionResult> PostStatus(Status status)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            db.Samples.Add(sample);
+            db.Statuses.Add(status);
 
             try
             {
@@ -88,7 +88,7 @@ namespace GbyGNg.Controllers
             }
             catch (DbUpdateException)
             {
-                if (SampleExists(sample.SampleId))
+                if (StatusExists(status.StatusId))
                 {
                     return Conflict();
                 }
@@ -98,23 +98,23 @@ namespace GbyGNg.Controllers
                 }
             }
 
-            return CreatedAtRoute("DefaultApi", new { id = sample.SampleId }, sample);
+            return CreatedAtRoute("DefaultApi", new { id = status.StatusId }, status);
         }
 
-        // DELETE: api/Samples/5
-        [ResponseType(typeof(Sample))]
-        public async Task<IHttpActionResult> DeleteSample(int id)
+        // DELETE: api/Status/5
+        [ResponseType(typeof(Status))]
+        public async Task<IHttpActionResult> DeleteStatus(int id)
         {
-            Sample sample = await db.Samples.FindAsync(id);
-            if (sample == null)
+            Status status = await db.Statuses.FindAsync(id);
+            if (status == null)
             {
                 return NotFound();
             }
 
-            db.Samples.Remove(sample);
+            db.Statuses.Remove(status);
             await db.SaveChangesAsync();
 
-            return Ok(sample);
+            return Ok(status);
         }
 
         protected override void Dispose(bool disposing)
@@ -126,9 +126,9 @@ namespace GbyGNg.Controllers
             base.Dispose(disposing);
         }
 
-        private bool SampleExists(int id)
+        private bool StatusExists(int id)
         {
-            return db.Samples.Count(e => e.SampleId == id) > 0;
+            return db.Statuses.Count(e => e.StatusId == id) > 0;
         }
     }
 }
