@@ -1,0 +1,25 @@
+﻿** Highlights
+     Tables that will be rebuilt
+       [dbo].[Samples]
+       [dbo].[Statuses]
+       [dbo].[Users]
+     Clustered indexes that will be dropped
+       None
+     Clustered indexes that will be created
+       None
+     Possible data issues
+       None
+
+** User actions
+     Table rebuild
+       [dbo].[Samples] (Table)
+       [dbo].[Statuses] (Table)
+       [dbo].[Users] (Table)
+
+** Supporting actions
+     Drop
+       [dbo].[FK_Samples_ToStatus] (Foreign Key)
+       [dbo].[FK_Samples_ToUser] (Foreign Key)
+     Create
+       [dbo].[FK_Samples_ToStatus] (Foreign Key)
+       [dbo].[FK_Samples_ToUser] (Foreign Key)

@@ -1,0 +1,9 @@
+{
+  "name": "gby-gweb-app",
+  "version": "0.0.0",
+  "description": "GbyGWebApp",
+  "main": "server.js",
+  "author": {
+    "name": "JRamirez"
+  }
+}

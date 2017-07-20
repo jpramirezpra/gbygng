@@ -1,0 +1,5 @@
+c:\Users\jramirez\documents\visual studio 2017\Projects\GbyGRest\GbyG\bin\Debug\GbyG.dacpac
+c:\Users\jramirez\documents\visual studio 2017\Projects\GbyGRest\GbyG\bin\Debug\GbyG.dll
+c:\Users\jramirez\documents\visual studio 2017\Projects\GbyGRest\GbyG\bin\Debug\GbyG.pdb
+c:\Users\jramirez\documents\visual studio 2017\Projects\GbyGRest\GbyG\obj\Debug\GbyG.dll
+c:\Users\jramirez\documents\visual studio 2017\Projects\GbyGRest\GbyG\obj\Debug\GbyG.pdb
