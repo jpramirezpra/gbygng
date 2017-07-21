@@ -24,7 +24,7 @@ namespace GbyGNg
                 .IsUnicode(false);
 
             modelBuilder.Entity<Status>()
-                .Property(e => e.Status1)
+                .Property(e => e.StatusName)
                 .IsUnicode(false);
 
             modelBuilder.Entity<User>()

@@ -1,10 +1,99 @@
-﻿<h1>Hello {{name}}</h1>
-<article>This template holds the TypeScript source code of the <a href="https://angular.io/docs/ts/latest/quickstart.html" target="_blank">angular.io quickstart</a>, for good starting Angular 2 client app with ASP.NET WebApi 2 backend.</article><br />
-<p>See official Angular.io <a href="https://angular.io/docs/ts/latest/" target="_blank">documentation</a>.</p>
-<p>See cookbook <a href="https://angular.io/docs/ts/latest/cookbook/visual-studio-2015.html" target="_blank">Visual Studio QuickStart</a>.</p>
+﻿<div class="ui stackable menu">
+    <div class="item">
+        <img src="app/img/dna.png">
+    </div>
+    <div class="item">
+        <h2>{{name}}</h2>
+    </div>
 
-<p>This template <a href="https://github.com/jpramirezpra/GbyGNg" target="_blank">GitHub repository</a>.</p>
-<br />
-<footer>
-    <a href="https://twitter.com/MinoMartiniak" target="_blank">Jose Pablo Ramirez</a>
-</footer>
+    <div class="right menu">
+        <div class="item">
+            Search for user created samples
+        </div>
+
+        <div class="item">
+            <div class="ui icon input">
+                <input type="text" type="text" [(ngModel)]="userSearchString" placeholder="Search Samples">
+                <i class="search icon"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="ui container">
+    <div *ngIf="message != null" class="ui tertiary inverted blue segment">
+        {{message}}
+    </div>
+    <div *ngIf="error != null" class="ui tertiary inverted red segment">
+        {{error}}
+    </div>
+    <div class="ui grid">
+        <div class="ten wide column">
+            <div>
+                <div class="ui segment cards" id="sampleList">
+                    <div *ngFor="let sample of samples | statusFilter:selectedStatus:userSearchString" class="ui card">
+                        <div class="content">
+                            <div class="header">{{sample.Barcode}}</div>
+                            <div class="meta">{{sample.StatusName}}</div>
+                            <div class="description">
+                                Created By: {{sample.FirstName}} {{sample.LastName}} <br />
+                                Created On: {{sample.CreatedAt | date}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="six wide column">
+            <div class="ui segment">
+                <div>
+                    <label>Multiple Select Status</label>
+                    <select multiple name="status" [(ngModel)]="selectedStatus">
+                        <option *ngFor="let status of statuses" [value]="status.StatusId">
+                            {{status.StatusName}}
+                        </option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="ui segment">
+                <form class="ui form">
+                    <h2>Add Sample</h2>
+                    <div class="field">
+                        <label>Barcode</label>
+                        <input maxlength="6" type="text" [(ngModel)]="newSample.Barcode" name="Barcode">
+                    </div>
+                    <div class="field">
+                        <label>Status</label>
+                        <select [(ngModel)]="newSample.StatusId" class="ui fluid dropdown" name="StatusId">
+                            <option *ngFor="let status of statuses" [ngValue]="status.StatusId">{{status.StatusName}}</option>
+                        </select>
+                    </div>
+                    <div class="field">
+                        <label>User</label>
+                        <select [(ngModel)]="newSample.UserId" class="ui fluid dropdown" name="UserId">
+                            <option *ngFor="let user of users" [ngValue]="user.UserId">{{user.FirstName}} {{user.LastName}}</option>
+                        </select>
+                    </div>
+                    <button class="ui primary button" (click)="onFormSubmit()">
+                        Add Sample
+                    </button>
+                    <button class="ui button" (click)="resetFrom()">
+                        Discard
+                    </button>
+                </form>
+            </div>
+        </div>
+
+    </div>
+
+
+    <footer>
+        <a href="https://twitter.com/MinoMartiniak" target="_blank">Jose Pablo Ramirez</a>
+        <p>This template <a href="https://github.com/jpramirezpra/GbyGNg" target="_blank">GitHub repository</a>.</p>
+    </footer>
+
+</div>

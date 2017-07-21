@@ -8,6 +8,7 @@ namespace GbyGNg
 
     public partial class Sample
     {
+        [Key, Column(Order =0)]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int SampleId { get; set; }
 

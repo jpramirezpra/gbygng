@@ -1,5 +1,0 @@
-c:\Users\jramirez\documents\visual studio 2017\Projects\GbyGRest\GbyGDatabase\bin\Debug\GbyGDatabase.dacpac
-c:\Users\jramirez\documents\visual studio 2017\Projects\GbyGRest\GbyGDatabase\bin\Debug\GbyGDatabase.dll
-c:\Users\jramirez\documents\visual studio 2017\Projects\GbyGRest\GbyGDatabase\bin\Debug\GbyGDatabase.pdb
-c:\Users\jramirez\documents\visual studio 2017\Projects\GbyGRest\GbyGDatabase\obj\Debug\GbyGDatabase.dll
-c:\Users\jramirez\documents\visual studio 2017\Projects\GbyGRest\GbyGDatabase\obj\Debug\GbyGDatabase.pdb

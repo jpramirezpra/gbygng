@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
 using GbyGNg;
+using GbyGNg.Models;
 
 namespace GbyGNg.Controllers
 {
@@ -20,7 +21,9 @@ namespace GbyGNg.Controllers
         // GET: api/Samples
         public async Task<IHttpActionResult> GetSamples()
         {
-            return Ok(db.Samples.Select(s => new { s.SampleId, s.User.FirstName, s.User.LastName, s.Barcode, s.Status.Status1 }));
+            return Ok(new {
+                data = db.Samples.Select(s => new { s.SampleId, s.User.FirstName, s.User.LastName, s.Barcode, s.Status.StatusName, s.User.UserId, s.Status.StatusId, s.CreatedAt})
+            });
         }
 
         // GET: api/Samples/5
@@ -36,45 +39,19 @@ namespace GbyGNg.Controllers
             return Ok(sample);
         }
 
-        // PUT: api/Samples/5
-        [ResponseType(typeof(void))]
-        public async Task<IHttpActionResult> PutSample(int id, Sample sample)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            if (id != sample.SampleId)
-            {
-                return BadRequest();
-            }
-
-            db.Entry(sample).State = EntityState.Modified;
-
-            try
-            {
-                await db.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!SampleExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return StatusCode(HttpStatusCode.NoContent);
-        }
-
         // POST: api/Samples
         [ResponseType(typeof(Sample))]
-        public async Task<IHttpActionResult> PostSample(Sample sample)
+        public async Task<IHttpActionResult> PostSample(NewSample newSample)
         {
+            Sample sample = new Sample();
+            sample.Barcode = newSample.Barcode;
+            sample.CreatedBy = newSample.UserId;
+            sample.StatusId = newSample.StatusId;
+            sample.CreatedAt = DateTime.Today;
+
+            //Auto-increment set off due to seeding db
+            sample.SampleId = db.Samples.Count() + 1;
+
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
@@ -86,7 +63,7 @@ namespace GbyGNg.Controllers
             {
                 await db.SaveChangesAsync();
             }
-            catch (DbUpdateException)
+            catch (DbUpdateException ex)
             {
                 if (SampleExists(sample.SampleId))
                 {
@@ -94,7 +71,7 @@ namespace GbyGNg.Controllers
                 }
                 else
                 {
-                    throw;
+                    return InternalServerError(ex) ;
                 }
             }
 

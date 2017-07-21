@@ -2,7 +2,7 @@
 (
 	[SampleId] INT NOT NULL PRIMARY KEY, 
     [Barcode] VARCHAR(50) NULL, 
-    [CreatedAt] DATETIME NULL, 
+    [CreatedAt] DATETIME NOT NULL DEFAULT GETDATE(),
     [CreatedBy] INT NULL, 
     [StatusId] INT NULL, 
     CONSTRAINT [FK_Samples_ToStatus] FOREIGN KEY ([StatusId]) REFERENCES [Statuses]([StatusId]), 

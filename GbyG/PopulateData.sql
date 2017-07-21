@@ -10,7 +10,7 @@ Post-Deployment Script Template
 --------------------------------------------------------------------------------------
 */
 
-insert into Users ([UserId], [FirstName], [LastName]) values
+insert into [Users] ([UserId], [FirstName], [LastName]) values
 		(0,'Kristine','Butler'),
 		(1,'Alfred','McKenzie'),
 		(2,'Cora','Hunt'),
@@ -23,14 +23,14 @@ insert into Users ([UserId], [FirstName], [LastName]) values
 		(9,'Dwayne','Pena');
 
 
-insert into Statuses ([StatusId], [Status]) values
+insert into [Statuses] ([StatusId], [Status]) values
 		(0,'Received'),
 		(1,'Accessioning'),
 		(2,'In Lab'),
 		(3,'Report Generation');
 
 
-insert into Samples ([SampleId],[Barcode], [CreatedAt], [CreatedBy], [StatusId]) values
+insert into [Samples] ([SampleId],[Barcode], [CreatedAt], [CreatedBy], [StatusId]) values
 		(1,'129076',2015-01-02,6,3),
 		(2,'850314',2015-06-15,7,3),
 		(3,'176033',2015-07-31,7,0),

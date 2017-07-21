@@ -18,9 +18,12 @@ namespace GbyGNg.Controllers
         private Model1 db = new Model1();
 
         // GET: api/Status
-        public IQueryable<Status> GetStatuses()
+        public async Task<IHttpActionResult> GetStatuses()
         {
-            return db.Statuses;
+            return Ok(new
+            {
+                data = db.Statuses.Select(s => new { s.StatusId, s.StatusName })
+            });
         }
 
         // GET: api/Status/5

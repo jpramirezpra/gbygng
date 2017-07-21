@@ -18,9 +18,12 @@ namespace GbyGNg.Controllers
         private Model1 db = new Model1();
 
         // GET: api/Users
-        public IQueryable<User> GetUsers()
+        public async Task<IHttpActionResult> GetUsers()
         {
-            return db.Users;
+            return Ok(new
+            {
+                data = db.Users.Select(s => new { s.UserId, s.FirstName, s.LastName })
+            });
         }
 
         // GET: api/Users/5

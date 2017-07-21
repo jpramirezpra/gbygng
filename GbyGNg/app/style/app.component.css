@@ -2,3 +2,26 @@
     font-size: 300%;
     color: #34495e;
 }
+
+#sampleList {
+    max-height: 40em;
+    overflow-y: scroll;
+}
+
+#sampleList .card{
+    font-size: 1.2em;
+    margin: auto;
+    margin-bottom: 1em;
+}
+
+#sampleList .card.hidden{
+    display:none;
+}
+
+.ui.segment select {
+    display:block;
+    width:100%;
+    overflow: hidden;
+}
+
+
